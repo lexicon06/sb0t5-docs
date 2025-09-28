@@ -1,82 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 <body>
 
 <main>
 
   <header>
-    <h1>⚡ sb0t5 Documentation</h1>
-    <p>Interactive, web-based reference for sb0t5 server commands with search, categories, and modern UI.</p>
+    <h1>⚡ Documentación sb0t5</h1>
+    <p>Referencia web interactiva para los comandos del servidor sb0t5, con búsqueda, categorías y diseño moderno.</p>
   </header>
 
   <section>
-    <h2>🚀 Features</h2>
+    <h2>🚀 Funcionalidades</h2>
     <ul>
-      <li>Fully categorized commands: From basic to owner-level.</li>
-      <li>Searchable: Quickly find commands by name, description, or syntax.</li>
-      <li>Syntax highlighting: Commands and arguments are displayed clearly.</li>
-      <li>Modern UI: Responsive and works on desktop and mobile.</li>
-      <li>Expandable categories: Click to reveal subcategories and commands.</li>
+      <li>Comandos totalmente categorizados: desde básicos hasta nivel propietario.</li>
+      <li>Búsqueda rápida: encuentra comandos por nombre, descripción o sintaxis.</li>
+      <li>Resaltado de sintaxis: los comandos y sus argumentos se muestran claramente.</li>
+      <li>Interfaz moderna: responsive, funciona en escritorio y dispositivos móviles.</li>
+      <li>Categorías expandibles: haz clic para mostrar subcategorías y comandos.</li>
     </ul>
   </section>
 
   <section>
-    <h2>📂 Repo Structure</h2>
+    <h2>📂 Estructura del repositorio</h2>
     <pre>
 sb0t5-docs/
-├─ index.html         # Main documentation page
-├─ README.md          # This file
-└─ assets/            # Optional: images, icons, etc.
+├─ index.html         # Página principal de documentación
+├─ README.md          # Este archivo
+└─ assets/            # Opcional: imágenes, íconos, etc.
     </pre>
   </section>
 
   <section>
-    <h2>💻 Usage</h2>
+    <h2>💻 Uso</h2>
     <ol>
       <li>
-        <strong>Clone the repo:</strong>
-        <pre>git clone https://github.com/your-username/sb0t5-docs.git</pre>
+        <strong>Clonar el repositorio:</strong>
+        <pre>git clone https://github.com/lexicon06/sb0t5-docs.git</pre>
       </li>
       <li>
-        <strong>Open index.html in your browser:</strong>
+        <strong>Abrir index.html en tu navegador:</strong>
         <pre>open index.html</pre>
       </li>
-      <li>Use the search box to filter commands instantly.</li>
+      <li>Usa el cuadro de búsqueda para filtrar comandos al instante.</li>
     </ol>
   </section>
 
   <section>
-    <h2>✨ Customization</h2>
+    <h2>✨ Personalización</h2>
     <ul>
-      <li>Add commands: Edit the <code>commandsData</code> object in the &lt;script&gt; tag inside <code>index.html</code>.</li>
-      <li>Change theme: Modify colors in the <code>style</code> section.</li>
-      <li>Expand UI: Add new sections, filters, or badges as needed.</li>
+      <li>Agregar comandos: Edita el objeto <code>commandsData</code> dentro de la etiqueta &lt;script&gt; en <code>index.html</code>.</li>
+      <li>Cambiar tema: Modifica los colores en la sección <code>&lt;style&gt;</code>.</li>
+      <li>Expandir UI: Agrega nuevas secciones, filtros o badges según lo necesites.</li>
     </ul>
   </section>
 
   <section>
-    <h2>📄 Contributing</h2>
+    <h2>📄 Contribuciones</h2>
     <ul>
-      <li>Fork the repo.</li>
-      <li>Make your changes (add commands, fix typos, improve styling).</li>
-      <li>Submit a pull request with a clear description of your changes.</li>
+      <li>Haz un fork del repositorio.</li>
+      <li>Realiza tus cambios (agregar comandos, corregir errores, mejorar el estilo).</li>
+      <li>Envía un pull request con una descripción clara de tus cambios.</li>
     </ul>
   </section>
 
   <section>
-    <h2>📌 License</h2>
-    <p>MIT License – free to use and modify.</p>
+    <h2>📌 Licencia</h2>
+    <p>Licencia MIT – libre para usar y modificar.</p>
   </section>
 
   <section>
-    <h2>❤️ Credits</h2>
-    <p>Created with ❤️ in 2025 by <strong>[Your Name]</strong>.<br>
-    Inspired by sb0t5 community tools and modern web design.</p>
+    <h2>❤️ Créditos</h2>
+    <p>Creado con ❤️ en 2025 por <strong>Pablo Santillán</strong>.<br>
+    Inspirado en las herramientas de la comunidad sb0t5 y diseño web moderno.</p>
   </section>
 
 </main>
