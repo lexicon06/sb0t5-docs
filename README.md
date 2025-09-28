@@ -3,31 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-  }
-  h1 { color: #b793ff; }
-  h2 { color: #7ee5f0; margin-top: 1.5em; }
-  pre {
-    background-color: #2a2a2a;
-    color: #8cff7e;
-    padding: 10px;
-    border-radius: 5px;
-    overflow-x: auto;
-  }
-  code { background-color: #2a2a2a; padding: 2px 4px; border-radius: 3px; }
-  ul, ol { margin-left: 20px; }
-  li { margin-bottom: 0.5em; }
-  a { color: #7ee5f0; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  section { margin-bottom: 2em; }
-</style>
+
 </head>
 <body>
 
