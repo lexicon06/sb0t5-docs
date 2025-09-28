@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comandos sb0t5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+        }
+
+        .whitespace-pre-wrap {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+    <script>
+
+        const commandsData = {
+            categories: [
+                {
+                    name: "Comandos Básicos",
+                    description: "Comandos esenciales disponibles para todos los usuarios",
+                    subcategories: [
+                        {
+                            name: "Información",
+                            commands: [
+                                { name: "/version", description: "Muestra la versión del servidor", level: "Regular", syntax: "/version" },
+                                { name: "/id", description: "Muestra tu ID de usuario", level: "Regular", syntax: "/id" },
+                                { name: "/info", description: "Muestra información del servidor", level: "Regular", syntax: "/info" },
+                                { name: "/locate", description: "Muestra tu ubicación en el servidor", level: "General", syntax: "/locate" },
+                                { name: "/viewmotd", description: "Muestra el mensaje del día", level: "General", syntax: "/viewmotd" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Usuario",
+                    description: "Comandos para interacción y personalización de usuarios",
+                    subcategories: [
+                        {
+                            name: "Navegación y Comunicación",
+                            commands: [
+                                { name: "/vroom", description: "Cambiar a sala virtual específica", level: "General", syntax: "/vroom <number>" },
+                                { name: "/customname", description: "Asignar nombre personalizado a usuario", level: "General", syntax: "/customname <user> <custom name>" },
+                                { name: "/uncustomname", description: "Remover nombre personalizado de usuario", level: "General", syntax: "/uncustomname <user>" },
+                                { name: "/pmblock", description: "Activar/desactivar bloqueo de mensajes privados", level: "General", syntax: "/pmblock <on or off>" },
+                                { name: "/shout", description: "Enviar mensaje destacado", level: "General", syntax: "/shout <message>" },
+                                { name: "/whisper", description: "Enviar mensaje privado a usuario", level: "General", syntax: "/whisper <user> <message>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Moderación",
+                    description: "Comandos para moderación y control de usuarios",
+                    subcategories: [
+                        {
+                            name: "Baneos y Expulsiones",
+                            commands: [
+                                { name: "/ban", description: "Banear usuario permanentemente", level: "ban", syntax: "/ban <user> [<message>]" },
+                                { name: "/ban10", description: "Banear usuario por 10 minutos", level: "ban10", syntax: "/ban10 <user> [<message>]" },
+                                { name: "/ban60", description: "Banear usuario por 60 minutos", level: "ban60", syntax: "/ban60 <user> [<message>]" },
+                                { name: "/unban", description: "Remover ban de usuario", level: "unban", syntax: "/unban <user>" },
+                                { name: "/listbans", description: "Listar todos los usuarios baneados", level: "listbans", syntax: "/listbans" },
+                                { name: "/kick", description: "Expulsar usuario de la sala", level: "kick", syntax: "/kick <user> [<message>]" }
+                            ]
+                        },
+                        {
+                            name: "Silencios y Restricciones",
+                            commands: [
+                                { name: "/muzzle", description: "Silenciar a un usuario", level: "muzzle", syntax: "/muzzle <user> [<message>]" },
+                                { name: "/unmuzzle", description: "Remover silencio de usuario", level: "muzzle", syntax: "/unmuzzle <user>" },
+                                { name: "/lower", description: "Convertir texto de usuario a minúsculas", level: "lower", syntax: "/lower <user> [<message>]" },
+                                { name: "/unlower", description: "Remover restricción de minúsculas", level: "unlower", syntax: "/unlower <user>" },
+                                { name: "/kiddy", description: "Aplicar filtro infantil a usuario", level: "kiddy", syntax: "/kiddy <user> [<message>]" },
+                                { name: "/unkiddy", description: "Remover filtro infantil", level: "kiddy", syntax: "/unkiddy <user>" }
+                            ]
+                        },
+                        {
+                            name: "Efectos Especiales",
+                            commands: [
+                                { name: "/addkewltext", description: "Agregar texto especial a usuario", level: "kewltext", syntax: "/addkewltext <user>" },
+                                { name: "/remkewltext", description: "Remover texto especial", level: "kewltext", syntax: "/remkewltext <user>" },
+                                { name: "/echo", description: "Hacer que usuario repita mensaje", level: "echo", syntax: "/echo <user> <message>" },
+                                { name: "/unecho", description: "Remover efecto echo", level: "echo", syntax: "/unecho <user>" },
+                                { name: "/paint", description: "Aplicar colores especiales a usuario", level: "paint", syntax: "/paint <user> <message>" },
+                                { name: "/unpaint", description: "Remover colores especiales", level: "paint", syntax: "/unpaint <user>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Administración",
+                    description: "Comandos avanzados de administración del servidor",
+                    subcategories: [
+                        {
+                            name: "Baneos por IP y Red",
+                            commands: [
+                                { name: "/rangeban", description: "Banear rango de direcciones IP", level: "rangeban", syntax: "/rangeban <ip range>" },
+                                { name: "/rangeunban", description: "Remover ban de rango IP", level: "rangeunban", syntax: "/rangeunban <ip range>" },
+                                { name: "/listrangebans", description: "Listar todos los baneos de rango IP", level: "listrangebans", syntax: "/listrangebans" },
+                                { name: "/asnban", description: "Banear número de sistema autónomo", level: "asnban", syntax: "/asnban <asn>" },
+                                { name: "/asnunban", description: "Remover ban ASN", level: "asnunban", syntax: "/asnunban <asn | asnban id>" },
+                                { name: "/listasnbans", description: "Listar todos los baneos ASN", level: "listasnbans", syntax: "/listasnbans" }
+                            ]
+                        },
+                        {
+                            name: "Gestión del Servidor",
+                            commands: [
+                                { name: "/cbans", description: "Limpiar todos los baneos", level: "cbans", syntax: "/cbans" },
+                                { name: "/adminmsg", description: "Enviar mensaje a todos los administradores", level: "adminmsg", syntax: "/adminmsg <message>" },
+                                { name: "/link", description: "Conectar servidor a otro servidor", level: "link", syntax: "/link <hashlink>" },
+                                { name: "/unlink", description: "Desconectar servidor", level: "unlink", syntax: "/unlink" },
+                                { name: "/admins", description: "Listar todos los administradores", level: "admins", syntax: "/admins" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Sistema de Filtros",
+                    description: "Filtrado de contenido y automatización de moderación",
+                    subcategories: [
+                        {
+                            name: "Control de Filtros",
+                            commands: [
+                                { name: "/filter", description: "Activar/desactivar sistema de filtros", level: "filter", syntax: "/filter <on or off>" }
+                            ]
+                        },
+                        {
+                            name: "Filtros de Conexión",
+                            commands: [
+                                { name: "/addjoinfilter", description: "Agregar filtro para usuarios que se conectan", level: "filter", syntax: "/addjoinfilter <trigger>, <type>[, <args>]" },
+                                { name: "/remjoinfilter", description: "Remover filtro de conexión", level: "filter", syntax: "/remjoinfilter <ident>" },
+                                { name: "/joinfilters", description: "Listar todos los filtros de conexión", level: "filter", syntax: "/joinfilters" }
+                            ]
+                        },
+                        {
+                            name: "Filtros de Archivos",
+                            commands: [
+                                { name: "/addfilefilter", description: "Agregar filtro para archivos compartidos", level: "filter", syntax: "/addfilefilter <trigger>, <type>[, <args>]" },
+                                { name: "/remfilefilter", description: "Remover filtro de archivos", level: "filter", syntax: "/remfilefilter <ident>" },
+                                { name: "/filefilters", description: "Listar todos los filtros de archivos", level: "filter", syntax: "/filefilters" }
+                            ]
+                        },
+                        {
+                            name: "Filtros de Palabras",
+                            commands: [
+                                { name: "/addwordfilter", description: "Agregar filtro para palabras en el chat", level: "filter", syntax: "/addwordfilter <trigger>, <type>[, <args>]" },
+                                { name: "/remwordfilter", description: "Remover filtro de palabras", level: "filter", syntax: "/remwordfilter <ident>" },
+                                { name: "/wordfilters", description: "Listar todos los filtros de palabras", level: "filter", syntax: "/wordfilters" }
+                            ]
+                        },
+                        {
+                            name: "Gestión de Filtros",
+                            commands: [
+                                { name: "/addline", description: "Agregar línea a filtro existente", level: "filter", syntax: "/addline <ident>, <text>" },
+                                { name: "/remline", description: "Remover línea específica de filtro", level: "filter", syntax: "/remline <ident>, <line ident>" },
+                                { name: "/viewfilter", description: "Mostrar detalles de filtro específico", level: "filter", syntax: "/viewfilter <ident>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Configuración",
+                    description: "Ajustes del servidor y activación/desactivación de funciones",
+                    subcategories: [
+                        {
+                            name: "Configuración General",
+                            commands: [
+                                { name: "/caps", description: "Activar/desactivar texto en mayúsculas", level: "caps", syntax: "/caps <on or off>" },
+                                { name: "/anon", description: "Activar/desactivar usuarios anónimos", level: "anon", syntax: "/anon <on or off>" },
+                                { name: "/customnames", description: "Activar/desactivar nombres personalizados", level: "customnames", syntax: "/customnames <on or off>" },
+                                { name: "/general", description: "Activar/desactivar comandos generales", level: "general", syntax: "/general <on or off>" },
+                                { name: "/colors", description: "Activar/desactivar colores del chat", level: "colors", syntax: "/colors <on or off>" }
+                            ]
+                        },
+                        {
+                            name: "Medios y Contenido",
+                            commands: [
+                                { name: "/scribbles", description: "Activar/desactivar garabatos", level: "scribbles", syntax: "/scribbles <on or off>" },
+                                { name: "/audios", description: "Activar/desactivar archivos de audio", level: "audios", syntax: "/audios <on or off>" },
+                                { name: "/buzzes", description: "Activar/desactivar zumbidos", level: "buzzes", syntax: "/buzzes <on or off>" },
+                                { name: "/sharefiles", description: "Activar/desactivar compartir archivos", level: "sharefiles", syntax: "/sharefiles <on or off>" }
+                            ]
+                        },
+                        {
+                            name: "URLs y Enlaces",
+                            commands: [
+                                { name: "/url", description: "Activar/desactivar URLs", level: "url", syntax: "/url <on or off>" },
+                                { name: "/addurl", description: "Agregar URL permitida", level: "addurl", syntax: "/addurl <address> <text>" },
+                                { name: "/remurl", description: "Remover URL de la lista", level: "remurl", syntax: "/remurl <id>" },
+                                { name: "/listurls", description: "Listar todas las URLs permitidas", level: "listurls", syntax: "/listurls" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Información",
+                    description: "Estado del servidor y comandos de monitoreo",
+                    subcategories: [
+                        {
+                            name: "Información del Servidor",
+                            commands: [
+                                { name: "/roominfo", description: "Activar/desactivar información de sala", level: "roominfo", syntax: "/roominfo <on or off>" },
+                                { name: "/status", description: "Cambiar estado del servidor", level: "status", syntax: "/status <host status>" },
+                                { name: "/lastseen", description: "Activar/desactivar información de última vez visto", level: "lastseen", syntax: "/lastseen <on or off>" },
+                                { name: "/history", description: "Activar/desactivar historial", level: "history", syntax: "/history <on or off>" },
+                                { name: "/idle", description: "Activar/desactivar monitoreo de inactividad", level: "idle", syntax: "/idle <on or off>" },
+                                { name: "/clock", description: "Activar/desactivar reloj", level: "clock", syntax: "/clock <on or off>" }
+                            ]
+                        },
+                        {
+                            name: "Información de Usuario",
+                            commands: [
+                                { name: "/whois", description: "Obtener información de usuario", level: "whois", syntax: "/whois <user>" },
+                                { name: "/whowas", description: "Buscar en historial de usuarios", level: "whowas", syntax: "/whowas <query>" },
+                                { name: "/stats", description: "Mostrar estadísticas del servidor", level: "stats", syntax: "/stats" },
+                                { name: "/banstats", description: "Mostrar estadísticas de baneos", level: "banstats", syntax: "/banstats" },
+                                { name: "/trace", description: "Rastrear usuario o IP", level: "trace", syntax: "/trace <user or ip>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Mensajes y Temas", description: "Mensajes de sala y gestión de temas",
+                    subcategories: [
+                        {
+                            name: "Gestión de Temas",
+                            commands: [
+                                { name: "/addtopic", description: "Agregar tema de sala", level: "addtopic", syntax: "/addtopic <text>" },
+                                { name: "/remtopic", description: "Remover tema de sala", level: "remtopic", syntax: "/remtopic" }
+                            ]
+                        },
+                        {
+                            name: "Mensajes de Bienvenida",
+                            commands: [
+                                { name: "/greetmsg", description: "Activar/desactivar mensajes de bienvenida", level: "greetmsg", syntax: "/greetmsg <on or off>" },
+                                { name: "/addgreetmsg", description: "Agregar mensaje de bienvenida", level: "addgreetmsg", syntax: "/addgreetmsg <message>" },
+                                { name: "/remgreetmsg", description: "Remover mensaje de bienvenida", level: "remgreetmsg", syntax: "/remgreetmsg <id>" },
+                                { name: "/listgreetmsg", description: "Listar todos los mensajes de bienvenida", level: "listgreetmsg", syntax: "/listgreetmsg" },
+                                { name: "/pmgreetmsg", description: "Configurar mensajes de bienvenida privados", level: "pmgreetmsg", syntax: "/pmgreetmsg <on or off>" },
+                                { name: "/pmroom", description: "Configurar mensaje de sala privada", level: "pmroom", syntax: "/pmroom <text>" }
+                            ]
+                        },
+                        {
+                            name: "Anuncios",
+                            commands: [
+                                { name: "/announce", description: "Enviar anuncio del servidor", level: "announce", syntax: "/announce <text>" },
+                                { name: "/adminannounce", description: "Configurar anuncios de administrador", level: "adminannounce", syntax: "/adminannounce <on or off>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Host",
+                    description: "Comandos exclusivos para el host del servidor",
+                    subcategories: [
+                        {
+                            name: "Moderación de Host",
+                            commands: [
+                                { name: "/hostkill", description: "Eliminar usuario (Solo Host)", level: "Host", syntax: "/hostkill <user>" },
+                                { name: "/hostban", description: "Banear usuario (Solo Host)", level: "Host", syntax: "/hostban <user>" },
+                                { name: "/hostunban", description: "Desbanear usuario (Solo Host)", level: "Host", syntax: "/hostunban <user>" },
+                                { name: "/hostmuzzle", description: "Silenciar usuario (Solo Host)", level: "Host", syntax: "/hostmuzzle <user>" },
+                                { name: "/hostunmuzzle", description: "Quitar silencio de usuario (Solo Host)", level: "Host", syntax: "/hostunmuzzle <user>" },
+                                { name: "/hostcbans", description: "Limpiar baneos (Solo Host)", level: "Host", syntax: "/hostcbans" },
+                                { name: "/hostclone", description: "Clonar mensaje de usuario (Solo Host)", level: "Host", syntax: "/hostclone <user> <text>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos de Dueño",
+                    description: "Comandos exclusivos para el dueño del servidor",
+                    subcategories: [
+                        {
+                            name: "Gestión de Cuentas",
+                            commands: [
+                                { name: "/addautologin", description: "Agregar autologin (Solo Dueño)", level: "Owner", syntax: "/addautologin <user> <level>" },
+                                { name: "/remautologin", description: "Remover autologin (Solo Dueño)", level: "Owner", syntax: "/remautologin <id>" },
+                                { name: "/autologins", description: "Listar autologins (Solo Dueño)", level: "Owner", syntax: "/autologins" },
+                                { name: "/listpasswords", description: "Listar contraseñas (Solo Dueño)", level: "Owner", syntax: "/listpasswords" },
+                                { name: "/rempassword", description: "Remover contraseña (Solo Dueño)", level: "Owner", syntax: "/rempassword <id>" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Comandos Avanzados",
+                    description: "Administración avanzada del servidor y utilidades",
+                    subcategories: [
+                        {
+                            name: "Gestión de Usuarios",
+                            commands: [
+                                { name: "/move", description: "Mover usuario a sala virtual", level: "move", syntax: "/move <user> <vroom>" },
+                                { name: "/changename", description: "Cambiar nombre de usuario", level: "changename", syntax: "/changename <user> <name>" },
+                                { name: "/oldname", description: "Restaurar nombre anterior de usuario", level: "oldname", syntax: "/oldname <user>" },
+                                { name: "/clone", description: "Clonar mensaje de usuario", level: "clone", syntax: "/clone <user> <text>" },
+                                { name: "/changemessage", description: "Cambiar mensaje de usuario", level: "changemessage", syntax: "/changemessage <user> <message>" },
+                                { name: "/disableavatar", description: "Desactivar avatar de usuario", level: "disableavatar", syntax: "/disableavatar <user>" }
+                            ]
+                        },
+                        {
+                            name: "Utilidades del Servidor",
+                            commands: [
+                                { name: "/roomsearch", description: "Buscar salas por nombre", level: "roomsearch", syntax: "/roomsearch <name>" },
+                                { name: "/mtimeout", description: "Configurar tiempo de silencio", level: "mtimeout", syntax: "/mtimeout <minutes>" },
+                                { name: "/redirect", description: "Redirigir usuario a otro servidor", level: "redirect", syntax: "/redirect <user> <hashlink>" },
+                                { name: "/clearscreen", description: "Limpiar pantalla", level: "clearscreen", syntax: "/clearscreen" },
+                                { name: "/stealth", description: "Activar/desactivar modo sigiloso", level: "stealth", syntax: "/stealth <on or off>" },
+                                { name: "/cloak", description: "Activar/desactivar modo oculto", level: "cloak", syntax: "/cloak <on or off>" }
+                            ]
+                        },
+                        {
+                            name: "Servicios Externos",
+                            commands: [
+                                { name: "/urban", description: "Búsqueda en Urban Dictionary", level: "urban", syntax: "/urban <text>" },
+                                { name: "/define", description: "Búsqueda de definición en diccionario", level: "define", syntax: "/define <text>" }
+                            ]
+                        },
+                        {
+                            name: "Gestión del Sistema",
+                            commands: [
+                                { name: "/loadmotd", description: "Recargar mensaje del día", level: "loadmotd", syntax: "/loadmotd" },
+                                { name: "/loadtemplate", description: "Recargar plantillas de mensajes", level: "loadtemplate", syntax: "/loadtemplate" },
+                                { name: "/enableadmins", description: "Activar comandos de administrador", level: "disableadmins", syntax: "/enableadmins" },
+                                { name: "/disableadmins", description: "Desactivar comandos de administrador", level: "disableadmins", syntax: "/disableadmins" }
+                            ]
+                        },
+                        {
+                            name: "Monitoreo y Registros",
+                            commands: [
+                                { name: "/vspy", description: "Activar/desactivar espía de sala virtual", level: "vspy", syntax: "/vspy <on or off>" },
+                                { name: "/ipsend", description: "Activar/desactivar envío de IP", level: "ipsend", syntax: "/ipsend <on or off>" },
+                                { name: "/bansend", description: "Activar/desactivar envío de baneos", level: "bansend", syntax: "/bansend <on or off>" },
+                                { name: "/logsend", description: "Activar/desactivar envío de registros", level: "logsend", syntax: "/logsend <on or off>" }
+                            ]
+                        },
+                        {
+                            name: "Gestión de Cuarentena",
+                            commands: [
+                                { name: "/listquarantined", description: "Listar usuarios en cuarentena", level: "listquarantined", syntax: "/listquarantined" },
+                                { name: "/unquarantine", description: "Remover usuario de cuarentena", level: "unquarantine", syntax: "/unquarantine <id>" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+    </script>
+</head>
+
+<body class="bg-gray-950 text-gray-100 font-sans">
+    <!-- ENCABEZADO -->
+    <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur border-b border-gray-800">
+        <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+            <h1 class="text-2xl font-bold text-purple-400">⚡ Comandos sb0t5</h1>
+            <input id="searchInput" type="text" placeholder="🔍 Buscar comandos..."
+                class="rounded-xl px-4 py-2 text-sm bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 w-60" />
+        </div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="max-w-6xl mx-auto p-6 space-y-4" id="categories"></main>
+
+    <!-- PIE -->
+    <footer class="text-center py-6 border-t border-gray-800 text-gray-500 text-sm">
+        Documentación sb0t5 • Hecho con ❤️ en 2025
+    </footer>
+
+    <script>
+        const categoriesContainer = document.getElementById("categories");
+        const searchInput = document.getElementById("searchInput");
+
+        // Paleta moderna de gradientes
+        const gradients = [
+            "from-purple-500 to-indigo-500",
+            "from-cyan-400 to-blue-600",
+            "from-green-400 to-emerald-600",
+            "from-pink-500 to-rose-600",
+            "from-orange-400 to-red-600",
+            "from-teal-400 to-sky-600",
+        ];
+
+        function renderCategories(data, query = "") {
+            categoriesContainer.innerHTML = "";
+            data.categories.forEach((category, i) => {
+                let match = false;
+                const subcatsHTML = category.subcategories.map(subcat => {
+                    const cmds = subcat.commands.filter(cmd =>
+                        cmd.name.toLowerCase().includes(query) ||
+                        cmd.description.toLowerCase().includes(query) ||
+                        cmd.syntax.toLowerCase().includes(query)
+                    );
+                    if (cmds.length > 0) match = true;
+
+                    return cmds.length ? `
+        <div class="p-4 border border-gray-800 rounded-xl bg-gray-900/60">
+          <h3 class="font-semibold text-purple-300 mb-3 text-lg border-b border-gray-700 pb-2">${subcat.name}</h3>
+          <div class="space-y-3">
+            ${cmds.map(cmd => `
+              <div class="p-4 bg-gray-800 rounded-lg hover:bg-gray-750 transition-all duration-200 border border-gray-700 hover:border-gray-600">
+                <div class="flex justify-between items-center mb-3">
+                  <span class="font-bold text-purple-300 text-sm">${cmd.name}</span>
+                  <span class="text-xs bg-gray-900 text-gray-300 px-2 py-1 rounded-full border border-gray-600">
+                    Nivel: ${cmd.level}
+                  </span>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="text-xs text-gray-400 block mb-1">Sintaxis:</label>
+    <pre class="bg-gradient-to-r from-gray-900 to-gray-800 text-green-300 text-sm px-4 py-3 rounded-lg border border-gray-700 shadow-sm overflow-x-auto">
+  <code class="font-mono tracking-tight">
+    ${cmd.syntax.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+  </code>
+</pre>
+
+                </div>
+                
+                <p class="text-sm text-gray-300">${cmd.description}</p>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      ` : "";
+                }).join("");
+
+                if (match || query === "") {
+                    categoriesContainer.innerHTML += `
+        <section class="rounded-2xl shadow-lg overflow-hidden border border-gray-800 mb-6">
+          <button onclick="toggleCategory(${i})" 
+            class="w-full flex justify-between items-center px-6 py-4 bg-gradient-to-r ${gradients[i % gradients.length]} text-white font-semibold text-lg hover:opacity-90 transition">
+            <span>${category.name}</span>
+            <svg id="icon-${i}" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="content-${i}" class="hidden p-6 bg-gray-900 space-y-4">
+            <p class="text-sm text-gray-400 mb-4 italic">${category.description}</p>
+            <div class="grid md:grid-cols-2 gap-4">
+              ${subcatsHTML}
+            </div>
+          </div>
+        </section>
+      `;
+                }
+            });
+        }
+        function toggleCategory(index) {
+            const content = document.getElementById(`content-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            content.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+        }
+
+        // Inicial
+        renderCategories(commandsData);
+
+        // Buscador
+        searchInput.addEventListener("input", e => {
+            renderCategories(commandsData, e.target.value.toLowerCase());
+        });
+    </script>
+</body>
+
+</html>
